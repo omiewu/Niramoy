@@ -1,0 +1,522 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Niramoy</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Fraunces:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest">
+</script>
+<style>
+:root{--ink:#102b33;
+--jade:#16766b;
+--soft:#e6f3ef;
+--canvas:#f8f8f4;
+--line:#dde7e2;
+--muted:#6d7e7d;
+--blue:#286bd9;
+--gold:#f4b63e}
+*{box-sizing:border-box}
+body{margin:0;
+background:var(--canvas);
+font:14px 'DM Sans';
+color:var(--ink)}
+a{text-decoration:none;
+color:inherit}
+button{font:inherit;
+cursor:pointer;
+border:0}
+.lucide{width:1em;
+height:1em;
+stroke-width:2;
+vertical-align:-.16em}
+.w{max-width:1200px;
+margin:auto;
+padding:0 24px}
+.top,footer{background:var(--ink);
+color:#d7e7e2;
+padding:10px;
+font-size:11px}
+.head{height:75px;
+background:#fff;
+width:100%}
+.head-inner{height:100%;
+display:flex;
+align-items:center;
+gap:25px;
+position:relative}
+.logo{font-size:25px;
+font-weight:700}
+.logo b{background:var(--jade);
+color:#fff;
+padding:2px 8px;
+border-radius:8px}
+.search{position:absolute;
+left:50%;
+transform:translateX(-50%);
+width:510px;
+height:46px;
+border:1px solid var(--line);}
+.search{display:flex;
+align-items:center;
+overflow:hidden;
+border-radius:10px}
+.search>i,.search>svg{margin:0 12px;
+color:var(--muted)}
+.search input{border:0;
+outline:0;
+min-width:0;
+flex:1}
+.search input::placeholder{font-family:Fraunces,serif;font-weight:400}
+.search button{align-self:stretch;
+padding:0 25px;
+background:var(--jade);
+color:#fff;
+font-weight:700;
+font-size:16px}
+.profile,.head-inner>a[href="checkout.html"]{width:36px;
+height:36px;
+border:1px solid var(--line);
+border-radius:50%;
+display:grid;
+place-items:center;
+color:var(--jade)}
+.head-inner>a[href="checkout.html"]{margin-left:auto;
+margin-right:-13px}
+.head-inner>a[href="checkout.html"] .lucide{width:14px;
+height:14px}
+.nav{background:#fff;
+border-block:1px solid var(--line)}
+.nav .nav-shell{height:48px;
+display:grid;
+grid-template-columns:32px minmax(0,1fr) 32px;
+align-items:center;
+gap:6px;
+padding-inline:16px}
+.nav-scroll{min-width:0;
+overflow-x:auto;
+scroll-behavior:smooth;
+scrollbar-width:none}
+.nav-scroll::-webkit-scrollbar{display:none}
+.nav-menu{display:flex;
+width:max-content;
+min-width:100%;
+gap:25px;
+align-items:center;
+white-space:nowrap;
+font-size:12px;
+font-weight:700}
+.nav-menu a{padding:8px 0;
+border-bottom:2px solid transparent;
+transition:color .2s ease,border-color .2s ease}
+.nav-menu a:hover,.nav-menu a:focus-visible{color:var(--jade);
+border-color:var(--jade);
+outline:0}
+.nav-arrow{width:30px;
+height:30px;
+display:grid;
+place-items:center;
+border:1px solid var(--line);
+border-radius:50%;
+background:#fff;
+color:var(--jade)}
+.nav-arrow:disabled{visibility:hidden}
+.hero{margin:32px 0;
+min-height:300px;
+border-radius:20px;
+background:#102b33;
+overflow:hidden;
+position:relative;
+isolation:isolate}
+.hero-slide{position:absolute;
+inset:0;
+z-index:-2;
+background-position:center;
+background-size:cover;
+animation:hero-in .45s ease-out}
+.hero-arrow{position:absolute;
+top:50%;
+z-index:1;
+width:42px;
+height:42px;
+border-radius:50%;
+background:#ffffffe6;
+color:var(--jade);
+display:grid;
+place-items:center;
+transform:translateY(-50%)}
+.hero-arrow.prev{left:18px}
+.hero-arrow.next{right:18px}
+@keyframes hero-in{from{opacity:.65;transform:scale(1.025)}to{opacity:1;transform:scale(1)}}
+.copy{display:none}
+.ey{color:var(--jade);
+font-size:11px;
+font-weight:700;
+letter-spacing:1px;
+text-transform:uppercase}
+h1,h2{font-family:Fraunces,serif}
+h1{font-size:42px;
+line-height:1.05;
+margin:12px 0}
+.copy .ey{color:#bfe9df}
+.copy p{color:#e1efeb;
+max-width:430px}
+.care{display:none}
+.pri{background:var(--jade);
+color:#fff;
+padding:12px 17px;
+border-radius:9px;
+font-weight:700}
+.dots{position:absolute;
+bottom:24px;
+left:50%;
+transform:translateX(-50%);
+display:flex;
+align-items:center}
+.dots button{width:7px;
+height:7px;
+border-radius:10px;
+padding:0;
+background:#ffffff80;
+margin-right:6px}
+.dots .on{width:22px;
+background:#fff}
+.care-actions{padding:0 0 18px}.care-actions h2{text-align:center;font:700 21px 'DM Sans';margin:0 0 16px}.care-actions h2 span{color:var(--jade)}.care-action-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}.care-action{--accent:#16766b;--tint:#dcefe9;min-height:190px;padding:18px 16px 14px;border-radius:16px;background:linear-gradient(145deg,#fff 0%,var(--tint) 100%);border:1px solid #ffffff99;box-shadow:0 8px 18px #102b3310;display:flex;flex-direction:column;position:relative;isolation:isolate;overflow:hidden;transition:transform .2s ease,box-shadow .2s ease}.care-action::after{content:'';position:absolute;z-index:0;right:-25px;bottom:-35px;width:115px;height:115px;border:22px solid #ffffff80;border-radius:50%}.care-action>*{position:relative;z-index:1}.care-action:nth-child(2){--accent:#1679a7;--tint:#d8f1f7}.care-action:nth-child(3){--accent:#699900;--tint:#e9f5c8}.care-action:nth-child(4){--accent:#7551c9;--tint:#e9e0ff}.care-action:nth-child(5){--accent:#cc6a26;--tint:#ffe7d1}.care-action:nth-child(6){--accent:#ca4c62;--tint:#ffe0e5}.care-action:hover{transform:translateY(-4px);box-shadow:0 13px 25px #102b3320}.care-action-icon{width:45px;height:45px;display:grid;place-items:center;align-self:flex-end;margin:-3px -2px 9px;border-radius:50%;background:var(--accent);color:#fff;box-shadow:0 5px 12px #102b3320;position:relative;z-index:1}.care-action-icon .lucide{width:24px;height:24px;stroke-width:2.4}.care-action .ey{color:var(--accent);font-size:10px}.care-action h3{font-size:16px;line-height:1.25;margin:7px 0 5px}.care-action p{font-size:11px;line-height:1.4;margin:0 0 13px;color:#38514f;min-height:31px}.care-action .action-link{position:relative;z-index:1;margin-top:auto;display:block;padding:9px 7px;border-radius:8px;background:#fff;color:var(--accent);text-align:center;font-size:12px;font-weight:700;box-shadow:0 3px 10px #102b3312}.care-action .action-link:hover{background:var(--accent);color:#fff}
+.quick-access{padding:23px 0px}
+.quick-grid{display:grid;
+grid-template-columns:repeat(8,1fr);
+gap:10px}
+.quick-card{display:block;
+min-width:0;
+text-align:center;
+font-size:11px;
+font-weight:700;
+transition:transform .2s ease,color .2s ease}
+.quick-visual{height:104px;
+margin-bottom:8px;
+border-radius:12px;
+background:#fff3dc;
+display:grid;
+place-items:center;
+position:relative;
+overflow:hidden;
+color:var(--jade)}
+.quick-visual::before,.quick-visual::after{content:'';
+position:absolute;
+width:60px;
+height:60px;
+border-radius:50%;
+background:#ffffff70}
+.quick-visual::before{top:-22px;left:-20px}
+.quick-visual::after{right:-24px;bottom:-27px}
+.quick-visual .lucide{position:relative;
+z-index:1;
+width:37px;
+height:37px;
+stroke-width:1.55}
+.quick-card small{display:block;
+min-height:28px;
+color:var(--muted);
+font-size:9px;
+font-weight:600;
+line-height:1.35}
+@media(hover:hover){.quick-card:hover{color:var(--jade);
+transform:translateY(-4px)}
+.quick-card:hover .quick-visual{background:#fbe9c8;
+box-shadow:0 8px 16px #102b3312}
+.quick-card:hover .quick-visual .lucide{transform:scale(1.1)}}
+.quick-card:focus-visible{outline:2px solid var(--jade);
+outline-offset:4px;
+border-radius:12px}
+.quick-visual .lucide{transition:transform .2s ease}
+section{padding:23px 0}
+.bar{display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:14px}
+.bar h2{font:700 18px 'DM Sans';
+margin:0}
+.see{font-size:12px;
+font-weight:700}
+.arrows button{border:1px solid var(--line);
+background:#fff;
+color:var(--jade);
+border-radius:8px;
+width:31px;
+height:31px;
+margin-left:5px}
+.arrows button.is-hidden{display:none}
+.best-picks{position:relative}
+.best-picks .arrows{position:static}
+.best-picks .arrows button{position:absolute;
+top:50%;
+z-index:2;
+width:42px;
+height:42px;
+margin:0;
+border-radius:50%;
+box-shadow:0 3px 10px #102b3326;
+transform:translateY(-50%)}
+.best-picks .arrows button:first-child{left:-10px}
+.best-picks .arrows button:last-child{right:-10px}
+.shelf-section{position:relative}.shelf-section .arrows{position:static}.shelf-section .arrows button{position:absolute;top:50%;z-index:2;width:42px;height:42px;margin:0;border-radius:50%;box-shadow:0 3px 10px #102b3326;background:#ffffffe6;transform:translateY(-50%)}.shelf-section .arrows button:first-child{left:-10px}.shelf-section .arrows button:last-child{right:-10px}
+.prail{display:flex;
+gap:16px;
+overflow:hidden;
+scroll-behavior:smooth;
+padding-bottom:4px}
+.pcard{min-width:calc((100% - 64px)/5);position:relative;cursor:pointer;transition:transform .2s ease}.pcard:hover{transform:translateY(-4px)}.pcard img{display:block;height:210px;width:100%;object-fit:contain;background:#fff;margin-bottom:15px}.off{display:none}.discount-ticket{position:absolute;top:6px;left:6px;z-index:1;width:38px;height:38px;display:grid;place-items:center;background:#286bd9;color:#fff;clip-path:polygon(22% 0,78% 0,100% 22%,100% 78%,78% 100%,22% 100%,0 78%,0 22%);text-align:center;font-size:9px;line-height:1.02;font-weight:700}.product-note{display:none}.pcard h3{font-size:14px;line-height:1.32;margin:0 0 5px;height:37px;overflow:hidden}.product-rating{height:22px;display:flex;align-items:center;gap:4px;margin-bottom:7px;font-size:14px;line-height:1;color:var(--gold);letter-spacing:1px}.product-rating .rating-half{background:linear-gradient(90deg,var(--gold) 50%,#cbd3d0 50%);background-clip:text;-webkit-background-clip:text;color:transparent}.product-rating small{color:#788584;font-size:12px;font-weight:600;letter-spacing:0}.ship,.stars,.old{display:none}.price-row{display:flex;align-items:baseline;gap:7px;padding-right:62px}.price{font-size:16px;font-weight:700}.old-price{color:#8a9795;font-size:11px;font-weight:600;text-decoration-thickness:1px}.add{position:absolute;right:0;bottom:0;border:1px solid var(--jade);background:#fff;color:var(--jade);font-size:10px;font-weight:700;padding:7px 10px;border-radius:5px}.add:hover{background:var(--jade);color:#fff}
+.cats{display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:11px}
+.cat{background:#fff;
+border:1px solid var(--line);
+border-radius:12px;
+padding:14px;
+height:96px}
+.cat i{color:var(--jade);
+background:var(--soft);
+padding:7px;
+border-radius:7px}
+.cat b{display:block;
+font-size:12px;
+margin-top:10px}
+.cat small{color:var(--muted);
+font-size:10px}
+.features{display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px}
+.feature{padding:24px;
+border-radius:17px}
+.offer{background:#dcefe9}
+.skin{background:#fff0d9}
+.feature h2{font-size:28px}
+.mini{display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin-top:12px}
+.mini div{background:#fff;
+border:1px solid var(--line);
+padding:15px;
+border-radius:12px;
+font-weight:700}
+.mini small{display:block;
+margin-top:7px}
+.trust-strip{background:var(--ink);color:#fff;border-radius:18px;padding:26px 30px;display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:20px;align-items:center}
+.trust-strip h2{font-size:25px;margin:5px 0 0}.trust-stat{border-left:1px solid #ffffff33;padding-left:20px}.trust-stat b{display:block;font-size:25px;color:#bfe9df}.trust-stat span{font-size:11px;color:#c4d7d2}
+.why-section{padding:50px 0 44px}.why-intro{text-align:center;max-width:570px;margin:0 auto 34px}.why-intro h2{font-size:30px;margin:8px 0}.why-intro p{color:var(--muted);line-height:1.6}.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px}.why-card{padding:0;min-height:175px;display:flex;flex-direction:column;align-items:flex-start}.why-card .why-illustration{width:54px;height:54px;object-fit:contain;margin:0 0 18px}.why-card.brand-mark .logo{font-size:44px;margin:15px 0 22px}.why-card.brand-mark .logo b{padding:3px 10px;border-radius:15px}.why-card h3{margin:18px 0 0;font-size:16px;line-height:1.55;font-weight:600}.why-card p{margin:0;color:var(--ink);font-size:16px;line-height:1.55}.illustration-credit{display:block;margin-top:24px;text-align:right;font-size:10px;color:var(--muted)}.illustration-credit a{text-decoration:underline}
+.service-row{display:grid;grid-template-columns:minmax(0,1fr) max-content;align-items:stretch;gap:15px;padding-bottom:48px}.service-panel{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:0 5px 15px #102b3308}.service-panel h3{margin:4px 0 12px;font-size:15px}.payment-methods,.delivery-partners{display:block;width:auto;height:auto;object-fit:contain;object-position:left center}.payment-methods{max-width:100%;max-height:88px}.delivery-partners{height:40px;margin-top:10px}
+footer{padding:0;background:var(--ink);color:#d7e7e2;font-size:12px}.footer-main{padding:48px 24px 30px;display:grid;grid-template-columns:1.35fr repeat(3,1fr) 1.25fr;gap:28px}.footer-brand .logo{display:inline-block;color:#fff;margin-bottom:12px}.footer-brand p{max-width:285px;line-height:1.6;color:#abc2bd}.footer-col h3,.footer-connect h3{font-size:12px;color:#fff;margin:6px 0 15px}.footer-col a{display:block;color:#adc5c0;margin:0 0 10px}.app-downloads{display:flex;gap:7px;margin-bottom:22px}.app-badge{display:flex;align-items:center;gap:5px;min-width:105px;padding:5px 7px;border:1px solid #ffffff33;border-radius:6px;background:#050909;color:#fff;line-height:1}.app-badge i{font-size:20px}.app-badge span{font-size:7px;color:#d7e7e2}.app-badge b{display:block;margin-top:2px;font-size:12px}.play-mark{width:16px;height:18px;display:block;background:linear-gradient(135deg,#45c4e9 0 32%,#f5d448 32% 54%,#e95557 54% 74%,#62ba6c 74%);clip-path:polygon(0 0,100% 50%,0 100%,25% 50%)}.footer-social{display:flex;gap:9px}.footer-social a{width:32px;height:32px;display:grid;place-items:center;border-radius:8px;overflow:hidden;transition:transform .2s ease,filter .2s ease}.footer-social a:hover{transform:translateY(-2px);filter:brightness(1.1)}.footer-social img{display:block;width:100%;height:100%;object-fit:contain}.icon-credit{display:block;margin:12px 0 0;color:#9fb8b2;font-size:9px}.icon-credit a{text-decoration:underline}.footer-bottom{border-top:1px solid #ffffff26;padding:15px 24px;display:flex;justify-content:space-between;gap:15px;color:#9fb8b2}.footer-bottom span:last-child{display:flex;gap:14px}.floating-tools{position:fixed;right:22px;bottom:22px;z-index:20;display:flex;flex-direction:column;align-items:center;gap:10px}.floating-tool{width:46px;height:46px;border:0;border-radius:15px;display:grid;place-items:center;box-shadow:0 10px 24px #102b3340;transition:transform .2s ease,opacity .2s ease,background .2s ease}.floating-tool .lucide{width:21px;height:21px;stroke-width:2.25}.chat-tool{background:var(--jade);color:#fff}.chat-tool:hover{background:#0e5f56;transform:translateY(-3px)}.scroll-top{background:#fff;color:var(--ink);opacity:0;visibility:hidden;transform:translateY(8px);pointer-events:none}.scroll-top.is-visible{opacity:1;visibility:visible;transform:translateY(0);pointer-events:auto}.scroll-top:hover{background:var(--gold);transform:translateY(-3px)}
+@media(max-width:760px){.top{display:none}
+.head{height:108px}
+.search{position:absolute;
+top:67px;
+left:16px;
+right:16px;
+width:auto;
+transform:none;
+background:#fff}
+.hero{min-height:250px}
+.hero-arrow{width:36px;
+height:36px}
+.hero-arrow.prev{left:12px}
+.hero-arrow.next{right:12px}
+.best-picks .arrows button{width:36px;
+height:36px}
+.best-picks .arrows button:first-child{left:-5px}
+.best-picks .arrows button:last-child{right:-5px}
+.shelf-section .arrows button:first-child{left:-5px}.shelf-section .arrows button:last-child{right:-5px}
+.dots{left:50%}
+h1{font-size:35px}
+.prail{overflow:auto}
+.pcard{min-width:47%}
+.care-action-grid{grid-template-columns:repeat(3,1fr)}
+.quick-grid{grid-template-columns:repeat(4,1fr)}
+.quick-visual{height:96px}
+.cats{grid-template-columns:repeat(3,1fr)}
+.features{grid-template-columns:1fr}
+.trust-strip{grid-template-columns:1fr 1fr;padding:22px}.trust-strip>div:first-child{grid-column:1/-1}.trust-stat:nth-child(2){border-left:0;padding-left:0}.why-grid{grid-template-columns:1fr 1fr;gap:28px 18px}.why-card{min-height:150px}.why-card p{font-size:14px}.service-row{grid-template-columns:1fr}.footer-main{grid-template-columns:1fr 1fr;padding:36px 24px;gap:22px}.footer-brand{grid-column:1/-1}.footer-bottom{flex-direction:column}.floating-tools{right:15px;bottom:15px}.floating-tool{width:43px;height:43px;border-radius:14px}
+}
+@media(max-width:400px){.w{padding:0 15px}
+.pcard{min-width:82%}
+.care-action-grid{grid-template-columns:repeat(2,1fr);gap:8px}.care-action{min-height:175px;padding:14px 12px 12px}.care-action h3{font-size:14px}.care-action p{font-size:10px}
+.quick-grid{gap:7px}
+.quick-visual{height:82px}
+.cats{gap:7px}
+.cat{padding:10px}
+.mini{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<div class="top">Authentic products · Nationwide delivery</div>
+<header class="head">
+<div class="w head-inner">
+<a class="logo" href="index.html">
+<b>+</b> Niramoy</a>
+<div class="search">⌕ <input placeholder="Search medicine, health products…">
+</div>
+<a href="checkout.html">🛍</a>
+<a class="profile" href="#" aria-label="Open profile"><i data-lucide="user-round"></i></a>
+</div>
+</header>
+<nav class="nav" aria-label="Product categories">
+<div class="w nav-shell">
+<button class="nav-arrow" type="button" aria-label="Show previous categories" data-nav-direction="-1"><i data-lucide="chevron-left"></i></button>
+<div class="nav-scroll" id="navScroll">
+<div class="nav-menu">
+<a href="#medicine">Medicine</a>
+<a href="#vitamins">Vitamins &amp; Supplements</a>
+<a href="#personal-care">Personal Care</a>
+<a href="#beauty">Beauty &amp; Skin Care</a>
+<a href="#baby-mom">Baby &amp; Mom</a>
+<a href="#diabetes">Diabetes Care</a>
+<a href="#devices">Healthcare Devices</a>
+<a href="#first-aid">First Aid</a>
+<a href="#home-lab">Home Lab &amp; Diagnostics</a>
+<a href="#nutrition">Nutrition &amp; Fitness</a>
+<a href="#oral-care">Oral Care</a>
+<a href="#feminine-care">Feminine Care</a>
+<a href="#pet-care">Pet Care</a>
+<a href="#wellness">Wellness</a>
+</div>
+</div>
+<button class="nav-arrow" type="button" aria-label="Show more categories" data-nav-direction="1"><i data-lucide="chevron-right"></i></button>
+</div>
+</nav>
+<main class="w">
+<div class="hero" id="hero">
+</div>
+<section class="care-actions" aria-labelledby="care-actions-title"><h2 id="care-actions-title">Care, made <span>easy.</span></h2><div class="care-action-grid"><article class="care-action"><span class="care-action-icon"><i data-lucide="message-circle"></i></span><div class="ey">Quick order</div><h3>Order on WhatsApp</h3><p>Send us your list and we’ll help you find what you need.</p><a class="action-link" href="https://wa.me/8801810117100" target="_blank" rel="noopener">Start a chat</a></article><article class="care-action"><span class="care-action-icon"><i data-lucide="file-up"></i></span><div class="ey">Simple &amp; safe</div><h3>Upload prescription</h3><p>Share your prescription for pharmacist-guided ordering.</p><a class="action-link" href="#">Upload now</a></article><article class="care-action"><span class="care-action-icon"><i data-lucide="badge-percent"></i></span><div class="ey">More value</div><h3>Member savings</h3><p>Unlock tailored offers on your regular essentials.</p><a class="action-link" href="#">Explore offers</a></article><article class="care-action"><span class="care-action-icon"><i data-lucide="heart-pulse"></i></span><div class="ey">At-home care</div><h3>Health check-ins</h3><p>Make small, informed steps toward feeling your best.</p><a class="action-link" href="#">View care guides</a></article><article class="care-action"><span class="care-action-icon"><i data-lucide="headphones"></i></span><div class="ey">Need a hand?</div><h3>Talk to our care team</h3><p>Helpful support for products, orders and delivery.</p><a class="action-link" href="tel:09600000000">Call 09600-000000</a></article><article class="care-action"><span class="care-action-icon"><i data-lucide="test-tube-diagonal"></i></span><div class="ey">Know more</div><h3>Book a lab test</h3><p>Browse convenient diagnostic tests for your family.</p><a class="action-link" href="#">Browse tests</a></article></div></section>
+<section>
+<div class="bar">
+<h2>Best Picks</h2>
+<span>
+<a class="see">see all</a>
+<span class="arrows">
+<button onclick="move(-1)">←</button>
+<button onclick="move(1)">→</button>
+</span>
+</span>
+</div>
+<div class="prail" id="rail">
+</div>
+</section>
+<section class="quick-access">
+<div class="bar">
+<h2>Quick Access</h2>
+</div>
+<div class="quick-grid" id="quickAccess">
+</div>
+</section>
+<section class="shelf-section">
+<div class="bar">
+<h2>Beauty &amp; Personal Care</h2>
+<span class="arrows"><button onclick="moveShelf('beautyRail',-1)" aria-label="Previous products"><i data-lucide="arrow-left"></i></button><button onclick="moveShelf('beautyRail',1)" aria-label="Next products"><i data-lucide="arrow-right"></i></button></span>
+</div>
+<div class="prail shelf-rail" id="beautyRail"></div>
+</section>
+<section class="shelf-section">
+<div class="bar">
+<h2>Health &amp; Wellness</h2>
+<span class="arrows"><button onclick="moveShelf('wellnessRail',-1)" aria-label="Previous products"><i data-lucide="arrow-left"></i></button><button onclick="moveShelf('wellnessRail',1)" aria-label="Next products"><i data-lucide="arrow-right"></i></button></span>
+</div>
+<div class="prail shelf-rail" id="wellnessRail"></div>
+</section>
+<section class="shelf-section">
+<div class="bar">
+<h2>Baby &amp; Mom Care</h2>
+<span class="arrows"><button onclick="moveShelf('babyRail',-1)" aria-label="Previous products"><i data-lucide="arrow-left"></i></button><button onclick="moveShelf('babyRail',1)" aria-label="Next products"><i data-lucide="arrow-right"></i></button></span>
+</div>
+<div class="prail shelf-rail" id="babyRail"></div>
+</section>
+<section aria-label="Niramoy trust indicators">
+<div class="trust-strip"><div><div class="ey">Niramoy, in numbers</div><h2>Care that people return to.</h2></div><div class="trust-stat"><b>50k+</b><span>happy orders delivered*</span></div><div class="trust-stat"><b>4.8 / 5</b><span>average customer rating*</span></div><div class="trust-stat"><b>64 districts</b><span>nationwide delivery reach*</span></div></div>
+</section>
+<section class="why-section"><div class="why-intro"><div class="ey">Our promise to you</div><h2>Why purchase from Niramoy?</h2></div><div class="why-grid"><article class="why-card brand-mark"><a class="logo" href="index.html"><b>+</b> Niramoy</a><p>Your everyday healthcare platform for Bangladesh.</p></article><article class="why-card"><img class="why-illustration" src="https://img.icons8.com/fluency/240/verified-badge.png" alt="Verified quality illustration"><p>Authentic products sourced from trusted manufacturers, distributors and importers.</p></article><article class="why-card"><img class="why-illustration" src="https://img.icons8.com/fluency/240/conference-call.png" alt="Customer community illustration"><p>Our customers are at the heart of everything we do.</p></article><article class="why-card"><img class="why-illustration" src="https://img.icons8.com/fluency/240/artificial-intelligence.png" alt="Technology illustration"><p>We use thoughtful technology to make care more dependable and convenient.</p></article></div></section>
+<section class="service-row" aria-label="Payments and delivery"><div class="service-panel"><div class="ey">Easy checkout</div><h3>Pay the way that suits you</h3><img class="payment-methods" src="assets/payment.png" alt="Supported payment methods, including cards, mobile banking and digital wallets"></div><div class="service-panel"><div class="ey">Delivery partners</div><img class="delivery-partners" src="assets/delivery.png" alt="Delivery partners: Pathao, RedX, Steadfast Courier and Paperfly GO"></div></section>
+</main>
+<div class="floating-tools" aria-label="Quick page actions"><button class="floating-tool scroll-top" type="button" aria-label="Back to top"><i data-lucide="arrow-up"></i></button><a class="floating-tool chat-tool" href="https://wa.me/8801810117100" target="_blank" rel="noopener" aria-label="Chat with Niramoy support"><i data-lucide="message-circle"></i></a></div>
+<footer><div class="w footer-main"><div class="footer-brand"><a class="logo" href="index.html"><b>+</b> Niramoy</a><p>Everyday healthcare, wellness and family essentials—delivered with care across Bangladesh.</p></div><div class="footer-col"><h3>SHOP</h3><a href="#">Medicine</a><a href="#">Vitamins &amp; supplements</a><a href="#">Personal care</a><a href="#">Baby &amp; mom</a><a href="#">Healthcare devices</a></div><div class="footer-col"><h3>HELP &amp; SUPPORT</h3><a href="#">How to order</a><a href="#">Delivery information</a><a href="#">Return policy</a><a href="#">Track your order</a><a href="#">Contact us</a></div><div class="footer-col"><h3>ABOUT NIRAMOY</h3><a href="#">About us</a><a href="#">Our care promise</a><a href="#">Privacy policy</a><a href="#">Terms &amp; conditions</a><a href="tel:09600000000">09600-000000</a></div><div class="footer-connect"><h3>DOWNLOAD OUR APP</h3><div class="app-downloads"><a class="app-badge" href="#" aria-label="Download Niramoy on Google Play"><span class="play-mark"></span><span>GET IT ON<b>Google Play</b></span></a><a class="app-badge" href="#" aria-label="Download Niramoy on the App Store"><i data-lucide="apple"></i><span>Download on the<b>App Store</b></span></a></div><h3>CONNECT IN SOCIAL</h3><div class="footer-social"><a href="#" aria-label="Facebook"><img src="assets/icon-facebook.png" alt=""></a><a href="#" aria-label="Instagram"><img src="assets/icon-instagram.png" alt=""></a><a href="#" aria-label="YouTube"><img src="assets/icon-youtube.png" alt=""></a><a href="#" aria-label="LinkedIn"><img src="assets/icon-linkedin.png" alt=""></a></div></div></div><div class="footer-bottom w"><span>© 2026 Niramoy. All rights reserved.</span><span><a href="#">Privacy</a><a href="#">Terms</a></span></div></footer>
+<script>const slides=[
+['The Niramoy care desk','A little more ease, for every health need.','https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'],
+['Made for your routine','Your monthly essentials, in one calm place.','https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?q=80&w=1130&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'],
+['Care, delivered','Thoughtful healthcare at your doorstep.','https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D']
+];let s=0;function show(x){const target=(x+slides.length)%slides.length;if(target===s&&hero.innerHTML)return;s=target;hero.innerHTML=`<div class="hero-slide" style="background-image:url('${slides[s][2]}')" role="img" aria-label="${slides[s][0]}"></div>
+<button class="hero-arrow prev" onclick="show(s-1)" aria-label="Previous slide"><i data-lucide="arrow-left"></i></button>
+<button class="hero-arrow next" onclick="show(s+1)" aria-label="Next slide"><i data-lucide="arrow-right"></i></button>
+<div class="copy">
+<div class="ey">${slides[s][0]}</div>
+<h1>${slides[s][1]}</h1>
+<p>Find everyday medicines, wellness essentials and trusted care products—delivered across Bangladesh.</p>
+<button class="pri">Shop essentials →</button>
+</div>
+<div class="care">
+<div class="ey">Care today</div>
+<h2>What can we help with?</h2>
+<div>💊 Find a medicine</div>
+<div>📄 Share a prescription</div>
+<div>♡ Build a wellness routine</div>
+</div>
+<div class="dots">${slides.map((_,i)=>`<button class="${i==s?'on':''}" onclick="show(${i})">
+</button>`).join('')}</div>`}show(0);setInterval(()=>show(s+1),6000);const names=['Kirkland 5% Minoxidil Extra Strength Hair Lotion','The Ordinary Niacinamide Serum','COSRX Salicylic Acid Daily Gentle Cleanser','Bioderma Sebium Gel Moussant','Dr. Althea 345 Relief Cream','Skin1004 Madagascar Centella Hyalu-Cica','CeraVe Hydrating Facial Cleanser','La Roche-Posay Anthelios Sunscreen','Cetaphil Moisturising Lotion','Neutrogena Hydro Boost Water Gel'],pics=['1550572017-edd951b55104','1626716493137-b67fe9501e76','1587854692152-cbe660dbde88','1471864190281-a93a3070b6de','1584308666744-24d5c474f2ae','1556228578-0d85b1a4d571'];rail.innerHTML=names.map((x,i)=>`<article class="pcard">
+<span class="off">${24+i}%<br>OFF</span>
+<img src="assets/med.jpg" alt="${x}">
+<span class="ship">🚀 12–24 HOURS</span>
+<h3>${x}</h3>
+<div class="stars">★★★★★ <small>(${16+i*29})</small>
+</div>
+<span class="old">৳${1490+i*210}</span>
+<b class="price">৳${799+i*321}</b>
+<button class="add">ADD</button>
+</article>`).join('');function move(x){rail.scrollBy({left:x*230,behavior:'smooth'})}const cn=['Medicine','Vitamins','Personal Care','Baby & Mom','Devices','Wellness','Diabetes Care','Oral Care','Women’s Care','Men’s Care','First Aid','Sexual Wellness','Eye & Ear','Home Healthcare','Ayurvedic Care'];const cats=document.getElementById('cats');if(cats)cats.innerHTML=cn.map((x,i)=>`<div class="cat">
+<i data-lucide="${['pill','sparkles','droplets','baby','thermometer'][i%5]}">
+</i>
+<b>${x}</b>
+<small>${120+i*53}+ products</small>
+</div>`).join('');lucide.createIcons()</script>
+<script>
+document.querySelector('.search').innerHTML='<i data-lucide="search"></i><input placeholder="Search medicine, health products..."><button type="button">Search</button>';
+document.querySelector('a[href="checkout.html"]').innerHTML='<i data-lucide="shopping-bag"></i>';
+document.querySelector('a[href="checkout.html"]').setAttribute('aria-label','Open cart');
+document.querySelectorAll('.arrows button').forEach(button=>button.innerHTML=`<i data-lucide="${button.getAttribute('onclick').includes('-1')?'arrow-left':'arrow-right'}"></i>`);
+const niramoyMiniIcons=['zap','shopping-basket','paw-print'];
+document.querySelectorAll('.mini > div').forEach((card,index)=>card.insertAdjacentHTML('afterbegin',`<i data-lucide="${niramoyMiniIcons[index]}"></i> `));
+rail.querySelectorAll('.ship').forEach(item=>item.insertAdjacentHTML('afterbegin','<i data-lucide="truck"></i> '));
+rail.querySelectorAll('.stars').forEach(item=>{const reviews=item.querySelector('small').outerHTML;item.innerHTML='<i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star"></i><i data-lucide="star-half"></i> '+reviews});
+rail.querySelectorAll('.pcard').forEach((card,index)=>{card.querySelectorAll('.off,.ship,.stars,.old').forEach(item=>item.remove());card.querySelector('img').insertAdjacentHTML('beforebegin',`<span class="discount-ticket">${24+index}%<br>OFF</span>`);card.querySelector('h3').insertAdjacentHTML('afterend',`<div class="product-rating" aria-label="Rated 4.5 out of 5 from ${16+index*29} reviews"><span>★★★★<span class="rating-half">★</span></span><small>(${16+index*29})</small></div>`);card.querySelector('.price').outerHTML=`<div class="price-row"><b class="price">Tk ${799+index*321}</b><del class="old-price">Tk ${1490+index*210}</del></div>`});
+const quickAccessItems=[['Medicine','pill','Everyday essentials'],['Beauty','sparkles','Skin and self care'],['Home Lab','heart-pulse','Tests at home'],['Nutrition','apple','Food and wellness'],['Baby & Mom','baby','Gentle family care'],['Home care','house-heart','For daily living'],['Pet care','paw-print','Care for companions'],['Devices','stethoscope','Health at home'],['Supplements','pill-bottle','Daily nourishment'],['Hair care','scissors','For stronger routines'],['Skin care','droplets','Your daily ritual'],['Feminine care','heart','Comfort and confidence'],['Oral care','smile','Healthy everyday habits'],['First aid','cross','Ready when needed'],['Wellness','leaf','Feel-good essentials'],['Eye & ear','eye','Focused gentle care']];
+document.getElementById('quickAccess').innerHTML=quickAccessItems.map(([name,icon,note])=>`<a class="quick-card" href="#quickAccess" aria-label="Browse ${name}"><span class="quick-visual"><i data-lucide="${icon}"></i></span><span>${name}</span><small>${note}</small></a>`).join('');
+const shelfProducts={beautyRail:['CeraVe Hydrating Facial Cleanser','The Ordinary Hyaluronic Acid Serum','Cetaphil Gentle Skin Cleanser','Neutrogena Hydro Boost Water Gel','Bioderma Atoderm Creme','COSRX Advanced Snail Mucin','La Roche-Posay Sunscreen SPF 50','Simple Kind to Skin Face Wash','The Ordinary Niacinamide Serum','Aveeno Daily Moisturising Lotion'],wellnessRail:['Kirkland Daily Multivitamin','Nature Made Vitamin D3','Centrum Adults Multivitamin','Omega-3 Fish Oil Softgels','Probiotic Daily Capsules','Oral Rehydration Salts','Vitamin C Chewable Tablets','Calcium with Vitamin D3','Magnesium Glycinate Capsules','Electrolyte Hydration Powder'],babyRail:['Baby Gentle Wash','Mother Care Nipple Cream','Baby Lotion Sensitive Skin','Newborn Diapers','Baby Feeding Bottle Set','Baby Sunscreen SPF 50','Baby Shampoo No Tears','Soft Baby Wipes','Infant Feeding Spoon Set','Maternity Support Pillow']};
+function productCard(name,index){return `<article class="pcard"><span class="discount-ticket">${15+index}%<br>OFF</span><img src="assets/med.jpg" alt="${name}"><h3>${name}</h3><div class="product-rating" aria-label="Rated 4.5 out of 5 from ${24+index*17} reviews"><span>★★★★<span class="rating-half">★</span></span><small>(${24+index*17})</small></div><div class="price-row"><b class="price">Tk ${499+index*110}</b><del class="old-price">Tk ${699+index*130}</del></div><button class="add">ADD</button></article>`}
+Object.entries(shelfProducts).forEach(([id,products])=>document.getElementById(id).innerHTML=products.map(productCard).join(''));
+function updateRailArrows(targetRail,controls){const atStart=targetRail.scrollLeft<=1;const atEnd=targetRail.scrollLeft+targetRail.clientWidth>=targetRail.scrollWidth-1;controls[0].classList.toggle('is-hidden',atStart);controls[1].classList.toggle('is-hidden',atEnd)}
+function updateShelfArrows(id){const shelfRail=document.getElementById(id);updateRailArrows(shelfRail,shelfRail.closest('.shelf-section').querySelectorAll('.arrows button'))}
+window.moveShelf=(id,direction)=>{const shelfRail=document.getElementById(id);shelfRail.scrollBy({left:direction*230,behavior:'smooth'});setTimeout(()=>updateShelfArrows(id),350)};
+document.querySelectorAll('.shelf-rail').forEach(shelfRail=>{shelfRail.addEventListener('scroll',()=>updateShelfArrows(shelfRail.id));window.addEventListener('resize',()=>updateShelfArrows(shelfRail.id));updateShelfArrows(shelfRail.id)});
+new MutationObserver(()=>lucide.createIcons()).observe(hero,{childList:true});
+hero.addEventListener('click',event=>{if(event.target.closest('.hero-arrow'))setTimeout(()=>lucide.createIcons(),0)});
+rail.closest('section').classList.add('best-picks');
+const bestPickArrows=rail.closest('section').querySelectorAll('.arrows button');
+function updateBestPickArrows(){updateRailArrows(rail,bestPickArrows)}
+window.move=direction=>{rail.scrollBy({left:direction*230,behavior:'smooth'});setTimeout(updateBestPickArrows,350)};
+rail.addEventListener('scroll',updateBestPickArrows);
+window.addEventListener('resize',updateBestPickArrows);
+updateBestPickArrows();
+const navScroll=document.getElementById('navScroll');
+const navArrows=document.querySelectorAll('.nav-arrow');
+function updateNavArrows(){const maxScroll=navScroll.scrollWidth-navScroll.clientWidth;navArrows[0].disabled=navScroll.scrollLeft<=1;navArrows[1].disabled=navScroll.scrollLeft>=maxScroll-1}
+navArrows.forEach(button=>button.addEventListener('click',()=>navScroll.scrollBy({left:Number(button.dataset.navDirection)*260,behavior:'smooth'})));
+navScroll.addEventListener('scroll',updateNavArrows);
+window.addEventListener('resize',updateNavArrows);
+updateNavArrows();
+const scrollTopButton=document.querySelector('.scroll-top');
+function updateScrollTopButton(){scrollTopButton.classList.toggle('is-visible',window.scrollY>window.innerHeight)}
+window.addEventListener('scroll',updateScrollTopButton,{passive:true});
+scrollTopButton.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+updateScrollTopButton();
+document.querySelectorAll('.pcard').forEach(card=>{card.setAttribute('role','link');card.tabIndex=0;card.addEventListener('click',()=>window.location.href='product-details.html');card.addEventListener('keydown',event=>{if(event.key==='Enter'||event.key===' '){event.preventDefault();window.location.href='product-details.html'}})});
+lucide.createIcons();
+</script>
+</body>
+</html>

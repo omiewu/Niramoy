@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Checkout — Niramoy</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest">
+</script>
+<style>
+:root{--ink:#102b33;
+--jade:#16766b;
+--soft:#e6f3ef;
+--canvas:#f8f8f4;
+--line:#dde7e2;
+--muted:#6d7e7d;
+--saff:#e89b3b}
+*{box-sizing:border-box}
+body{margin:0;
+background:var(--canvas);
+font:14px 'DM Sans',sans-serif;
+color:var(--ink)}
+a{text-decoration:none;
+color:inherit}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer;
+border:0}
+.lucide{width:1em;
+height:1em;
+stroke-width:2;
+vertical-align:-.14em}
+.wrap{max-width:1080px;
+margin:auto;
+padding:0 24px}
+.top{padding:10px;
+background:var(--ink);
+color:#d7e7e2;
+font-size:11px}
+.head{height:75px;
+background:#fff;
+border-bottom:1px solid var(--line);
+width:100%}
+.head-inner{max-width:1200px;
+width:100%;
+height:100%;
+margin:auto;
+padding:0 24px;
+display:flex;
+align-items:center;
+justify-content:space-between}
+.logo{font-size:25px;
+font-weight:700}
+.logo b{background:var(--jade);
+color:#fff;
+padding:2px 8px;
+border-radius:8px}
+.secure{font-size:12px;
+color:var(--muted)}
+.progress{display:flex;
+justify-content:center;
+padding:30px 0;
+gap:0}
+.progress span{display:flex;
+align-items:center;
+gap:7px;
+font-size:12px;
+color:#98aaa4}
+.progress span:not(:last-child):after{content:'';
+width:55px;
+height:1px;
+background:var(--line);
+margin:0 12px}
+.progress b{width:25px;
+height:25px;
+background:#e7eeeb;
+border-radius:50%;
+display:grid;
+place-items:center}
+.progress .active{color:var(--jade);
+font-weight:700}
+.progress .active b{background:var(--jade);
+color:#fff}
+.layout{display:grid;
+grid-template-columns:1fr 340px;
+gap:22px;
+align-items:start;
+padding-bottom:45px}
+.step,.summary{background:#fff;
+border:1px solid var(--line);
+border-radius:16px;
+padding:24px}
+.step+.step{margin-top:14px}
+.title{display:flex;
+gap:10px;
+align-items:center;
+margin-bottom:17px}
+.num{width:24px;
+height:24px;
+background:var(--soft);
+color:var(--jade);
+border-radius:50%;
+display:grid;
+place-items:center;
+font-weight:700;
+font-size:11px}
+.title h2,.summary h2{font:600 22px Fraunces,serif;
+margin:0}
+.title small{display:block;
+color:var(--muted);
+font-size:11px;
+margin-top:2px}
+.fields{display:grid;
+grid-template-columns:1fr 1fr;
+gap:12px}
+.field{display:flex;
+flex-direction:column;
+gap:5px}
+.field.full{grid-column:span 2}
+.field label{font-size:11px;
+font-weight:700;
+color:#536c66}
+.field input,.field select,.field textarea{border:1px solid var(--line);
+border-radius:9px;
+padding:11px;
+outline:0}
+.field textarea{height:70px}
+.error{display:none;
+color:#bd4d3c;
+font-size:10px}
+.invalid{border-color:#bd4d3c!important}
+.choice{border:1px solid var(--line);
+border-radius:9px;
+padding:12px;
+display:flex;
+gap:11px;
+align-items:center;
+margin-top:9px;
+cursor:pointer}
+.choice.selected{border-color:var(--line);
+box-shadow:none;
+background:#f8fcfa}
+.radio{width:16px;
+height:16px;
+border:2px solid #a6bcb5;
+border-radius:50%}
+.selected .radio{border:5px solid var(--jade)}
+.choice b{font-size:13px}
+.choice small{display:block;
+color:var(--muted);
+font-size:11px;
+margin-top:2px}
+.fee{margin-left:auto;
+font-size:12px;
+font-weight:700;
+color:var(--jade)}
+.upload{display:block;
+border:1px dashed #a9cfc4;
+border-radius:9px;
+background:#f8fcfa;
+text-align:center;
+padding:20px;
+color:var(--muted);
+font-size:12px;
+cursor:pointer}
+.upload b{color:var(--jade)}
+.summary{position:sticky;
+top:16px;
+background:#fff}
+.summary h2{padding-bottom:15px;
+border-bottom:1px solid var(--line)}
+.order{display:flex;
+align-items:center;
+gap:9px;
+padding:13px 0;
+border-bottom:1px solid var(--line)}
+.order img{width:43px;
+height:43px;
+object-fit:contain;
+background:#f4f8f6;
+border-radius:7px}
+.order b{font-size:12px}
+.order small{display:block;
+color:var(--muted);
+font-size:10px}
+.order strong{margin-left:auto;
+font-size:12px}
+.total{padding:12px 0}
+.row{display:flex;
+justify-content:space-between;
+color:var(--muted);
+font-size:12px;
+padding:5px 0}
+.grand{border-top:1px solid var(--line);
+padding-top:12px;
+margin-top:7px;
+color:var(--ink);
+font-size:15px;
+font-weight:700}
+.grand b{font-size:20px;
+color:var(--jade)}
+.place{width:100%;
+padding:14px;
+background:var(--jade);
+color:#fff;
+border-radius:9px;
+font-weight:700}
+.safe{text-align:center;
+color:var(--muted);
+font-size:10px;
+margin:10px}
+.modal{display:none;
+position:fixed;
+inset:0;
+background:#102b3388;
+place-items:center;
+padding:20px}
+.modal.show{display:grid}
+.sheet{background:#fff;
+border-radius:18px;
+padding:32px;
+text-align:center;
+max-width:390px}
+.check{width:58px;
+height:58px;
+margin:auto;
+background:var(--soft);
+color:var(--jade);
+border-radius:50%;
+display:grid;
+place-items:center;
+font-size:28px}
+.sheet h2{font:600 27px Fraunces,serif;
+margin:14px 0 7px}
+.sheet p{color:var(--muted);
+font-size:13px}
+.id{background:#f4f8f6;
+border-radius:8px;
+padding:11px;
+font-weight:700;
+margin:15px}
+.continue{display:block;
+background:var(--jade);
+color:#fff;
+text-decoration:none;
+border-radius:9px;
+padding:12px;
+font-weight:700;
+font-size:13px}
+footer{padding:0;
+background:var(--ink);
+color:#d7e7e2;
+font-size:12px}
+.footer-main{max-width:1200px;
+margin:auto;
+padding:48px 24px 30px;
+display:grid;
+grid-template-columns:1.35fr repeat(3,1fr) 1.25fr;
+gap:28px}
+.footer-brand .logo{display:inline-block;
+color:#fff;
+margin-bottom:12px}
+.footer-brand .logo b{width:auto;
+height:auto;
+padding:2px 8px}
+.footer-brand p{max-width:285px;
+line-height:1.6;
+color:#abc2bd}
+.footer-col h3,.footer-connect h3{font-size:12px;
+color:#fff;
+margin:6px 0 15px}
+.footer-col a{display:block;
+color:#adc5c0;
+margin:0 0 10px}
+.app-downloads{display:flex;
+gap:7px;
+margin-bottom:22px}
+.app-badge{display:flex;
+align-items:center;
+gap:5px;
+min-width:105px;
+padding:5px 7px;
+border:1px solid #ffffff33;
+border-radius:6px;
+background:#050909;
+color:#fff;
+line-height:1}
+.app-badge i{font-size:20px}
+.app-badge span{font-size:7px;
+color:#d7e7e2}
+.app-badge b{display:block;
+margin-top:2px;
+font-size:12px}
+.play-mark{width:16px;
+height:18px;
+display:block;
+background:linear-gradient(135deg,#45c4e9 0 32%,#f5d448 32% 54%,#e95557 54% 74%,#62ba6c 74%);
+clip-path:polygon(0 0,100% 50%,0 100%,25% 50%)}
+.footer-social{display:flex;
+gap:9px}
+.footer-social a{width:32px;
+height:32px;
+display:grid;
+place-items:center;
+border-radius:8px;
+overflow:hidden}
+.footer-social img{display:block;
+width:100%;
+height:100%;
+object-fit:contain}
+.footer-bottom{max-width:1200px;
+margin:auto;
+border-top:1px solid #ffffff26;
+padding:15px 24px;
+display:flex;
+justify-content:space-between;
+gap:15px;
+color:#9fb8b2}
+.footer-bottom span:last-child{display:flex;
+gap:14px}
+.checkout-trust{max-width:1080px;
+margin:0 auto;
+padding:0 24px 42px}
+.checkout-trust-inner{display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:16px;
+padding:20px 24px;
+border:1px solid var(--line);
+border-radius:14px;
+background:#fff}
+.checkout-trust-item{display:flex;
+align-items:center;
+gap:13px;
+min-width:0}
+.checkout-trust-item+ .checkout-trust-item{border-left:1px solid var(--line);
+padding-left:20px}
+.checkout-trust-item img{width:44px;
+height:44px;
+object-fit:contain;
+flex:none}
+.checkout-trust-item b{display:block;
+font-size:13px}
+.checkout-trust-item span{display:block;
+margin-top:3px;
+color:var(--muted);
+font-size:11px}
+@media(max-width:720px){.layout{grid-template-columns:1fr}
+.summary{position:static;
+order:-1}
+.fields{grid-template-columns:1fr}
+.field.full{grid-column:auto}
+.footer-main{grid-template-columns:1fr 1fr;
+padding:36px 24px;
+gap:22px}
+.footer-brand{grid-column:1/-1}
+.footer-bottom{flex-direction:column}
+.checkout-trust-inner{grid-template-columns:1fr;
+gap:14px}
+.checkout-trust-item+ .checkout-trust-item{border-left:0;
+border-top:1px solid var(--line);
+padding:14px 0 0}
+}
+@media(max-width:760px){.top{display:none}}
+@media(max-width:390px){.wrap{padding:0 15px}
+.progress span:not(:last-child):after{width:22px;
+margin:0 7px}
+.step,.summary{padding:16px}
+}
+</style>
+</head>
+<body>
+<div class="top">Authentic products · Nationwide delivery</div>
+<header class="head">
+<div class="head-inner">
+<a class="logo" href="index.html">
+<b>+</b> Niramoy</a>
+<span class="secure">🔒 Secure checkout</span>
+</div>
+</header>
+<main class="wrap">
+<div class="progress">
+<span>
+<b>✓</b>Cart</span>
+<span class="active">
+<b>2</b>Checkout</span>
+<span>
+<b>3</b>Confirmation</span>
+</div>
+<div class="layout">
+<form id="form">
+<div class="step">
+<div class="title">
+<i class="num">1</i>
+<div>
+<h2>Contact</h2>
+<small>Where we can reach you</small>
+</div>
+</div>
+<div class="fields">
+<div class="field full">
+<label>Full name</label>
+<input required placeholder="Your full name">
+<i class="error">Please add your name.</i>
+</div>
+<div class="field">
+<label>Mobile number</label>
+<input required name="phone" placeholder="01XXXXXXXXX">
+<i class="error">Use a valid mobile number.</i>
+</div>
+<div class="field">
+<label>Email (optional)</label>
+<input placeholder="you@email.com">
+</div>
+</div>
+</div>
+<div class="step">
+<div class="title">
+<i class="num">2</i>
+<div>
+<h2>Delivery address</h2>
+<small>We deliver throughout Bangladesh</small>
+</div>
+</div>
+<div class="fields">
+<div class="field">
+<label>Division</label>
+<select>
+<option>Dhaka</option>
+<option>Chattogram</option>
+<option>Khulna</option>
+</select>
+</div>
+<div class="field">
+<label>District</label>
+<select>
+<option>Dhaka</option>
+<option>Gazipur</option>
+<option>Narayanganj</option>
+</select>
+</div>
+<div class="field full">
+<label>Area</label>
+<input required placeholder="e.g. Dhanmondi">
+<i class="error">Please add your area.</i>
+</div>
+<div class="field full">
+<label>Full address</label>
+<textarea required placeholder="House, road, block and a delivery note">
+</textarea>
+<i class="error">Please add your address.</i>
+</div>
+</div>
+</div>
+<div class="step">
+<div class="title">
+<i class="num">3</i>
+<div>
+<h2>Delivery method</h2>
+<small>Choose your preferred timing</small>
+</div>
+</div>
+<div id="delivery">
+<div class="choice selected" data-fee="60">
+<i class="radio">
+</i>
+<span>
+<b>Standard delivery</b>
+<small>1–3 days · nationwide</small>
+</span>
+<span class="fee">৳ 60</span>
+</div>
+<div class="choice" data-fee="120">
+<i class="radio">
+</i>
+<span>
+<b>Express delivery</b>
+<small>Same day for selected areas</small>
+</span>
+<span class="fee">৳ 120</span>
+</div>
+</div>
+</div>
+<div class="step">
+<div class="title">
+<i class="num">4</i>
+<div>
+<h2>Payment</h2>
+<small>Select one secure payment option</small>
+</div>
+</div>
+<div id="payment">
+<div class="choice selected">
+<i class="radio">
+</i>
+<span>
+<b>Cash on Delivery</b>
+<small>Pay when your order arrives</small>
+</span>
+</div>
+<div class="choice">
+<i class="radio">
+</i>
+<span>
+<b>bKash</b>
+<small>Mobile financial service</small>
+</span>
+</div>
+<div class="choice">
+<i class="radio">
+</i>
+<span>
+<b>Nagad</b>
+<small>Digital payment</small>
+</span>
+</div>
+<div class="choice">
+<i class="radio">
+</i>
+<span>
+<b>Card payment</b>
+<small>Visa, Mastercard and more</small>
+</span>
+</div>
+</div>
+</div>
+<div class="step">
+<div class="title">
+<i class="num">5</i>
+<div>
+<h2>Prescription</h2>
+<small>Optional, if required for your order</small>
+</div>
+</div>
+<label class="upload">
+<input id="upload" type="file" hidden>
+<b id="filename">Choose a file</b>
+<br>JPG, PNG or PDF · max 10MB</label>
+</div>
+</form>
+<aside class="summary">
+<h2>Order summary</h2>
+<div class="order">
+<img src="assets/bisoloc.jpg" alt="Napa Extra">
+<span>
+<b>Napa Extra 500mg + 65mg</b>
+<small>Qty: 2</small>
+</span>
+<strong>৳ 5</strong>
+</div>
+<div class="order">
+<img src="assets/bisoloc.jpg" alt="ORSaline-N">
+<span>
+<b>ORSaline-N 10.25g</b>
+<small>Qty: 1</small>
+</span>
+<strong>৳ 10</strong>
+</div>
+<div class="total">
+<div class="row">
+<span>Subtotal</span>
+<span>৳ 15.00</span>
+</div>
+<div class="row">
+<span>Delivery</span>
+<span id="fee">৳ 60.00</span>
+</div>
+<div class="row grand">
+<span>Total</span>
+<b id="grand">৳ 75.00</b>
+</div>
+</div>
+<button class="place" onclick="place()">Place secure order</button>
+<div class="safe">🔒 Your order information is protected</div>
+</aside>
+</div>
+</main>
+<section class="checkout-trust" aria-label="Niramoy shopping assurances"><div class="checkout-trust-inner"><div class="checkout-trust-item"><img src="https://img.icons8.com/fluency/240/verified-badge.png" alt="Secure checkout illustration"><div><b>Secure checkout</b><span>Your payment and personal details stay protected.</span></div></div><div class="checkout-trust-item"><img src="https://img.icons8.com/fluency/240/delivery-scooter.png" alt="Fast delivery illustration"><div><b>Fast delivery</b><span>Reliable delivery across Bangladesh.</span></div></div><div class="checkout-trust-item"><img src="https://img.icons8.com/fluency/240/return-purchase.png" alt="Easy returns illustration"><div><b>Easy returns</b><span>Helpful support if something is not right.</span></div></div></div></section>
+<footer><div class="footer-main"><div class="footer-brand"><a class="logo" href="index.html"><b>+</b> Niramoy</a><p>Everyday healthcare, wellness and family essentials—delivered with care across Bangladesh.</p></div><div class="footer-col"><h3>SHOP</h3><a href="#">Medicine</a><a href="#">Vitamins &amp; supplements</a><a href="#">Personal care</a><a href="#">Baby &amp; mom</a><a href="#">Healthcare devices</a></div><div class="footer-col"><h3>HELP &amp; SUPPORT</h3><a href="#">How to order</a><a href="#">Delivery information</a><a href="#">Return policy</a><a href="#">Track your order</a><a href="#">Contact us</a></div><div class="footer-col"><h3>ABOUT NIRAMOY</h3><a href="#">About us</a><a href="#">Our care promise</a><a href="#">Privacy policy</a><a href="#">Terms &amp; conditions</a><a href="tel:09600000000">09600-000000</a></div><div class="footer-connect"><h3>DOWNLOAD OUR APP</h3><div class="app-downloads"><a class="app-badge" href="#" aria-label="Download Niramoy on Google Play"><span class="play-mark"></span><span>GET IT ON<b>Google Play</b></span></a><a class="app-badge" href="#" aria-label="Download Niramoy on the App Store"><i data-lucide="apple"></i><span>Download on the<b>App Store</b></span></a></div><h3>CONNECT IN SOCIAL</h3><div class="footer-social"><a href="#" aria-label="Facebook"><img src="assets/icon-facebook.png" alt=""></a><a href="#" aria-label="Instagram"><img src="assets/icon-instagram.png" alt=""></a><a href="#" aria-label="YouTube"><img src="assets/icon-youtube.png" alt=""></a><a href="#" aria-label="LinkedIn"><img src="assets/icon-linkedin.png" alt=""></a></div></div></div><div class="footer-bottom"><span>© 2026 Niramoy. All rights reserved.</span><span><a href="#">Privacy</a><a href="#">Terms</a></span></div></footer>
+<div class="modal" id="modal">
+<div class="sheet">
+<div class="check">✓</div>
+<h2>Order received!</h2>
+<p>Thank you for choosing Niramoy. Your order has been received.</p>
+<div class="id">Order ID: NRM-2026-1048</div>
+<a class="continue" href="index.html">Continue shopping</a>
+</div>
+</div>
+<script>document.querySelectorAll('#delivery .choice').forEach(x=>x.onclick=()=>{document.querySelectorAll('#delivery .choice').forEach(e=>e.classList.remove('selected'));x.classList.add('selected');let n=+x.dataset.fee;fee.textContent='৳ '+n+'.00';grand.textContent='৳ '+(15+n)+'.00'});document.querySelectorAll('#payment .choice').forEach(x=>x.onclick=()=>{document.querySelectorAll('#payment .choice').forEach(e=>e.classList.remove('selected'));x.classList.add('selected')});upload.onchange=()=>filename.textContent=upload.files[0]?.name||'Choose a file';function place(){let ok=true;document.querySelectorAll('[required]').forEach(x=>{let v=x.value.trim()!=='';if(x.name==='phone')v=/^01\d{9}$/.test(x.value);x.classList.toggle('invalid',!v);x.nextElementSibling.style.display=v?'none':'block';ok&&=v});if(ok)modal.classList.add('show');else document.querySelector('.invalid').scrollIntoView({behavior:'smooth',block:'center'})}</script>
+<script>
+document.querySelector('.secure').innerHTML='<i data-lucide="lock-keyhole"></i> Secure checkout';
+document.querySelector('.progress span:first-child b').innerHTML='<i data-lucide="check"></i>';
+document.querySelector('.safe').innerHTML='<i data-lucide="lock-keyhole"></i> Your order information is protected';
+document.querySelector('.check').innerHTML='<i data-lucide="check"></i>';
+lucide.createIcons();
+</script>
+</body>
+</html>
